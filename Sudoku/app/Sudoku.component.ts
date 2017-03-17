@@ -44,7 +44,7 @@ import { NgForm } from '@angular/forms';
 
                 <table class="table table-striped table-bordered table-condensed">
                     <tr *ngFor="let rows of RowsRange; let row = index">
-                        <td width="3" *ngFor="let col of ColsRange; let i = index">
+                        <td  *ngFor="let col of ColsRange; let i = index">
                             {{CurrentSudoku[row*9+i].Value}}
                         </td>
                     </tr>
@@ -55,12 +55,9 @@ import { NgForm } from '@angular/forms';
 </div>
 `,
     styles: [` 
-            container {width: 1200px;}
-            input.IsFocused {background-color:#D0FA58;}
-           input,td {text-align: center}
-select {
-    width: 300px; /* Ширина списка в пикселах */
-   }
+           input.IsFocused {background-color:#D0FA58;}
+           input,td {text-align: center;}
+           select {width: 300px;}
 
     `],
     providers: [HttpService]
@@ -90,7 +87,9 @@ export class SudokuComponent {
         //Алгоритм заполнения взят отсюда
         //https://github.com/perry-mitchell/sudoku-generator-cs
 
-        this.httpService.getSudokuArray().subscribe((data) => {
+        // Загружаем данные из статического файла
+        // И устанавливаем нужные флаги
+            this.httpService.getSudokuArray().subscribe((data) => {
             this.SudokuArray = data;
          
             this.CurrentOptionStr = this.defaultStr;
